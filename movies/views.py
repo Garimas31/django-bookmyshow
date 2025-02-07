@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect ,get_object_or_404
-from .models import Movie,Theater,Seat,Booking
+from .models import Movie,Theater,Seat,Booking,Show_seats
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.contrib import messages
 
 def movie_list(request):
     search_query=request.GET.get('search')
@@ -48,4 +49,19 @@ def book_seats(request,theater_id):
     return render(request,'movies/seat_selection.html',{'theaters':theaters,"seats":seats})
 
 
+def show_list(request):
+    shows = Show_seats.objects.all()
+    return render(request, 'show_list.html', {'shows': shows})
 
+# update whenver new ticket is booked
+def booked_tickets(request, show_id):
+    show = Show_seats.objects.get(id=show_id)
+
+    if show.seats_available():
+        show.booked_seats += 1
+        show.save()
+        messages.success(request, "Booking Successful!")
+    else:
+        messages.error(request, "No seats available!")
+
+    return redirect('show_list')

@@ -1,0 +1,10 @@
+{% for show in shows %}
+    <p>Movie: {{ show.movie.name }}</p>
+    <p>Showtime: {{ show.time }}</p>
+    
+    {% if show.seats_available %}
+        <span style="color: green; font-weight: bold;">Seats Available</span>
+    {% else %}
+        <span style="color: red; font-weight: bold;">Fully Booked</span>
+    {% endif %}
+{% endfor %}
