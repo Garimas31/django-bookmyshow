@@ -6,3 +6,4 @@ urlpatterns=[
     path('theater/<int:theater_id>/seats/book/',views.book_seats,name='book_seats'),
     path('shows/', views.show_list, name='show_list'),
 ]
+

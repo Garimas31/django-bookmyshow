@@ -51,6 +51,7 @@ def book_seats(request,theater_id):
 
 def show_list(request):
     shows = Show_seats.objects.all()
+    print("✅ show_list view is being called!") 
     return render(request, 'show_list.html', {'shows': shows})
 
 # update whenver new ticket is booked
