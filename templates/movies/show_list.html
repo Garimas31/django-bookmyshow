@@ -1,10 +1,25 @@
-{% for show in shows %}
-    <p>Movie: {{ show.movie.name }}</p>
-    <p>Showtime: {{ show.time }}</p>
-    
-    {% if show.seats_available %}
-        <span style="color: green; font-weight: bold;">Seats Available</span>
-    {% else %}
-        <span style="color: red; font-weight: bold;">Fully Booked</span>
-    {% endif %}
-{% endfor %}
+{% extends 'base.html' %}  <!-- Extend your base template -->
+
+{% block content %}
+<h2>Show List</h2>
+<table>
+    <tr>
+        <th>Movie</th>
+        <th>Showtime</th>
+        <th>Availability</th>
+    </tr>
+    {% for show in shows %}
+    <tr>
+        <td>{{ show.movie.name }}</td>
+        <td>{{ show.time }}</td>
+        <td>
+            {% if show.seats_available %}
+                <span style="color: green; font-weight: bold;">Seats Available</span>
+            {% else %}
+                <span style="color: red; font-weight: bold;">Fully Booked</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
