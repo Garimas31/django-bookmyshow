@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect ,get_object_or_404
-from .models import Movie,Theater,Seat,Booking,Show_seats
+from .models import Movie,Theater,Seat,Booking
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.contrib import messages
+
+
 
 def movie_list(request):
     search_query=request.GET.get('search')
@@ -12,12 +14,18 @@ def movie_list(request):
         movies=Movie.objects.all()
     return render(request,'movies/movie_list.html',{'movies':movies})
 
-def theater_list(request,movie_id):
-    movie = get_object_or_404(Movie,id=movie_id)
-    theater=Theater.objects.filter(movie=movie)
-    return render(request,'movies/theater_list.html',{'movie':movie,'theaters':theater})
+def theater_list(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    theaters = Theater.objects.filter(movie=movie)
 
-@login_required(login_url='/login/')
+    # Add seat availability information
+    theater_data = []
+    for theater in theaters:
+        available_seats = theater.available_seats()
+        status = "Seats Available" if available_seats > 0 else "Fully Booked"
+        theater_data.append({"theater": theater, "status": status, "available_seats": available_seats})
+
+    return render(request, 'movies/theater_list.html', {'movie': movie, 'theaters': theater_data})@login_required(login_url='/login/')
 def book_seats(request,theater_id):
     theaters=get_object_or_404(Theater,id=theater_id)
     seats=Seat.objects.filter(theater=theaters)
@@ -48,21 +56,3 @@ def book_seats(request,theater_id):
         return redirect('profile')
     return render(request,'movies/seat_selection.html',{'theaters':theaters,"seats":seats})
 
-
-def show_list(request):
-    shows = Show_seats.objects.all()
-    print("✅ show_list view is being called!") 
-    return render(request, 'show_list.html', {'shows': shows})
-
-# update whenver new ticket is booked
-def booked_tickets(request, show_id):
-    show = Show_seats.objects.get(id=show_id)
-
-    if show.seats_available():
-        show.booked_seats += 1
-        show.save()
-        messages.success(request, "Booking Successful!")
-    else:
-        messages.error(request, "No seats available!")
-
-    return redirect('show_list')

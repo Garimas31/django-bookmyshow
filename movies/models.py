@@ -12,13 +12,25 @@ class Movie(models.Model):
     def __str__(self):
         return self.name
 
+# class Theater(models.Model):
+#     name = models.CharField(max_length=255)
+#     movie = models.ForeignKey(Movie,on_delete=models.CASCADE,related_name='theaters')
+#     time= models.DateTimeField()
+
+#     def __str__(self):
+#         return f'{self.name} - {self.movie.name} at {self.time}'
 class Theater(models.Model):
     name = models.CharField(max_length=255)
-    movie = models.ForeignKey(Movie,on_delete=models.CASCADE,related_name='theaters')
-    time= models.DateTimeField()
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='theaters')
+    time = models.DateTimeField()
+
+    def available_seats(self):
+        return self.seats.filter(is_booked=False).count()
 
     def __str__(self):
-        return f'{self.name} - {self.movie.name} at {self.time}'
+        availability = "Seats Available" if self.available_seats() > 0 else "Fully Booked"
+        return f'{self.name} - {self.movie.name} at {self.time} ({availability})'
+
 
 class Seat(models.Model):
     theater = models.ForeignKey(Theater,on_delete=models.CASCADE,related_name='seats')
@@ -36,11 +48,5 @@ class Booking(models.Model):
     booked_at=models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f'Booking by{self.user.username} for {self.seat.seat_number} at {self.theater.name}'
-    
-class Show_seats(models.Model):
-    movie = models.ForeignKey('Movie', on_delete=models.CASCADE)
-    total_seats = models.IntegerField(default=100)  # Example total seats
-    booked_seats = models.IntegerField(default=0)  # Track booked seats
 
-    def seats_available(self):
-        return self.total_seats - self.booked_seats > 0  # Returns True if seats are available
+
