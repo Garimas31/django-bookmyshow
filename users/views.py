@@ -1,9 +1,10 @@
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from .forms import UserRegisterForm, UserUpdateForm
 from django.shortcuts import render,redirect
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login,authenticate, logout
 from django.contrib.auth.decorators import login_required
 from movies.models import Movie , Booking
+
 
 def home(request):
     movies= Movie.objects.all()
@@ -56,3 +57,4 @@ def reset_password(request):
     else:
         form=PasswordChangeForm(user=request.user)
     return render(request,'users/reset_password.html',{'form':form})
+

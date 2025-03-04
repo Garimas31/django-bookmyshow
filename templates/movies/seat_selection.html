@@ -145,6 +145,19 @@
     margin: 0 10px;
   }
 </style>
+<script>
+  let theaterId = "{{ theater.id }}";
+  let socket = new WebSocket(`ws://${window.location.host}/ws/seats/${theaterId}/`);
+
+  socket.onmessage = function(event) {
+      let data = JSON.parse(event.data);
+      document.getElementById("seat-count").innerText = data.available_seats;
+  };
+</script>
+
+<p>Available Seats: <span id="seat-count">{{ theater.available_seats }}</span></p>
+
+
 <!-- <h1>Seats for {{theater.name}} - {{theater.movie.name}}</h1>
 {% if error %}
 <p style="color:red;">{{error}}</p>

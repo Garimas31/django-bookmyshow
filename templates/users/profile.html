@@ -1,5 +1,5 @@
-{% extends "users/basic.html" %} {% block content %}
-
+{% extends "users/basic.html" %} 
+{% block content %}
 <div class="container py-5">
   <div class="row">
     <div class="col-lg-4 mb-4">
@@ -64,6 +64,10 @@
                         <i class="fas fa-chair me-2 text-muted"> </i>  Seat: {{ booking.seat.seat_number }}<br>
                         <i class="far fa-clock me-2 text-muted"> </i>  {{ booking.booked_at|date:"F d, Y H:i" }}
                       </p>
+                      <form action="{% url 'cancel_ticket' booking.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Cancel Ticket</button>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -126,7 +130,10 @@
       padding: 1rem;
     }
   }
-</style>
+</style> 
+{%endblock content%}
+
+
 <!-- <div class="container mt-4">
     <h2>Profile</h2>
     <form method="POST">
@@ -154,4 +161,4 @@
       {% endfor %}
     </ul>
   </div> -->
-{% endblock %}
+{% comment %} {% endblock %} {% endcomment %}
