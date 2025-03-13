@@ -8,5 +8,5 @@
     "routes": [
       { "src": "/(.*)", "dest": "bookmyseat/wsgi.py" }
     ]
-  }
+}
   
