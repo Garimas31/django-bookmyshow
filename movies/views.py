@@ -109,7 +109,7 @@ def book_seats(request, theater_id):
         plain_message = strip_tags(html_message)
         from_email = settings.EMAIL_HOST_USER
         recipient_list = [request.user.email]
-        
+        print(f"Sending email to: {recipient_list}") 
         send_mail(subject, plain_message, from_email, recipient_list, html_message=html_message)
 
         return redirect('profile')  # Redirect to profile after booking
