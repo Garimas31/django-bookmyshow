@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-7ork$ymtdx2@@$ia*n4*bn$hvij%!yh7^a**d8_yre7dofe%)8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-bookmyshow.onrender.com']
+ALLOWED_HOSTS = ['django-bookmyshow.onrender.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -66,6 +66,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'garimassharma2003@gmail.com'
 EMAIL_HOST_PASSWORD = 'wmlb zgmv qqdl spsw'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
