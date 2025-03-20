@@ -16,6 +16,9 @@ import dj_database_url
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import environ
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,7 +51,8 @@ INSTALLED_APPS = [
     'movies',
 ]
 INSTALLED_APPS += ["cloudinary", "cloudinary_storage"]
-
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": "dywdvazxt",
     "API_KEY": "567344693249113",
