@@ -13,12 +13,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
-import environ
 import os
-
+# import cloudinary
+# import cloudinary.uploader
+# import cloudinary.api
+# import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,16 +49,16 @@ INSTALLED_APPS = [
     'users',
     'movies',
 ]
-INSTALLED_APPS += ["cloudinary", "cloudinary_storage"]
-env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": "dywdvazxt",
-    "API_KEY": "567344693249113",
-    "API_SECRET": "ADDzpNavy70T9N11s89EXZ0EzUE",
-}
+# INSTALLED_APPS += ["cloudinary", "cloudinary_storage"]
+# env = environ.Env()
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# CLOUDINARY_STORAGE = {
+#     "CLOUD_NAME": "dywdvazxt",
+#     "API_KEY": "567344693249113",
+#     "API_SECRET": "ADDzpNavy70T9N11s89EXZ0EzUE",
+# }
 
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+# DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 
 MIDDLEWARE = [

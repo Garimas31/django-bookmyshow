@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User 
-from cloudinary.models import CloudinaryField
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=100)
@@ -29,8 +29,7 @@ class Movie(models.Model):
         ('telugu', 'Telugu'),
     ]
     name = models.CharField(max_length=255)
-
-    image = CloudinaryField('image')  
+    image = models.ImageField(upload_to="movies/")
     rating = models.DecimalField(max_digits=3, decimal_places=1)
     cast = models.TextField()
     description = models.TextField(blank=True, null=True)  # optional
@@ -72,8 +71,9 @@ class Booking(models.Model):
     user_email = models.EmailField(null=True, blank = True)  # Add this if user emails aren't in the User model
     def __str__(self):
         return f'Booking by{self.user.username} for {self.seat.seat_number} at {self.theater.name}'
-
-  # image = models.ImageField(upload_to="movies/")
+    
+# from cloudinary.models import CloudinaryField
+  #    image = CloudinaryField('image')  
 # class Movie(models.Model):
 #     name= models.CharField(max_length=255)
 #     image= models.ImageField(upload_to="movies/")
