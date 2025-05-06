@@ -115,7 +115,7 @@ WSGI_APPLICATION = 'bookmyseat.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://django_bookmyshow_rd45_user:vCSOBwTbKaq211uVsfZkMHR5RPYO6e7l@dpg-cv38p9ogph6c738n36s0-a.oregon-postgres.render.com/django_bookmyshow_rd45',
+        default='postgresql://django_bookmyseat_1vxk_user:ukZTctaSCxVMzWuUzEDqYrpV5NXN3hXe@dpg-d0d401q4d50c73eecpr0-a.oregon-postgres.render.com/django_bookmyseat_1vxk',
         conn_max_age=600,
         ssl_require=True  # Force SSL
     )
